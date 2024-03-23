@@ -31,11 +31,27 @@ public class RunningMedian {
 			
 			
 			median = getMedian();
-			System.out.println(median);
+			//System.out.println(median);
 		}
 		
 		
 		return median;
+	}
+	
+	public static void insertTimeTest(float data) {
+		RunningMedian.maxPQ.offer(data);
+	}
+	
+	public static int sizeTimeTest() {
+		return RunningMedian.maxPQ.size();
+	}
+	
+	public static float peekTimeTest() {
+		return RunningMedian.maxPQ.peek();
+	}
+	
+	public static float pollTimeTest() {
+		return RunningMedian.maxPQ.poll();
 	}
 	
 	private static void applyToLeftQueue(
