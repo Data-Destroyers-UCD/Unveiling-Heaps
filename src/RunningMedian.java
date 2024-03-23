@@ -3,30 +3,35 @@ import datastructures.*;
 
 public class RunningMedian {
 
-	private static PriorityQueue<Float> minPQ;
-	private static PriorityQueue<Float> maxPQ;
+	private float median = 0;
+	
+	private PriorityQueue<Float> minPQ;
+	private PriorityQueue<Float> maxPQ;
 	
 	final public static int HEAPPQ = 0;
 	final public static int UNSORTEDPQ = 1;
 	final public static int SORTEDPQ = 2;
-		
-	public static float Calculate(float[] numbersList, int queueNumber) {
-		
-		RunningMedian.initialiseQueue(queueNumber);
 	
-		float median = 0;
+	public RunningMedian(int queueNumber) {
+		this.median = 0;
+		this.initialiseQueue(queueNumber);
+	}
+		
+	public float Calculate(float[] numbersList) {
+		
+		
 		for(int i = 0; i < numbersList.length; ++i) {
 			if(numbersList[i] < median) {
-				RunningMedian.applyToLeftQueue(
+				this.applyToLeftQueue(
 						numbersList[i], 
-						RunningMedian.maxPQ, 
-						RunningMedian.minPQ);
+						this.maxPQ, 
+						this.minPQ);
 				
 			} else {
-				RunningMedian.applyToLeftQueue(
+				this.applyToLeftQueue(
 						numbersList[i], 
-						RunningMedian.minPQ, 
-						RunningMedian.maxPQ);
+						this.minPQ, 
+						this.maxPQ);
 			}
 			
 			
@@ -38,23 +43,35 @@ public class RunningMedian {
 		return median;
 	}
 	
-	public static void insertTimeTest(float data) {
-		RunningMedian.maxPQ.offer(data);
+	public void insertTimeTest(float data) {
+		this.maxPQ.offer(data);
 	}
 	
-	public static int sizeTimeTest() {
-		return RunningMedian.maxPQ.size();
+	public int sizeTimeTest() {
+		return this.maxPQ.size();
 	}
 	
-	public static float peekTimeTest() {
-		return RunningMedian.maxPQ.peek();
+	public float peekTimeTest() {
+		return this.maxPQ.peek();
 	}
 	
-	public static float pollTimeTest() {
-		return RunningMedian.maxPQ.poll();
+	public float pollTimeTest() {
+		return this.maxPQ.poll();
 	}
 	
-	private static void applyToLeftQueue(
+	public void pollAllTimeTest() {
+
+		while(this.minPQ.size() > 0 || this.maxPQ.size() > 0) {
+			if (this.minPQ.size() > 0) {
+				this.minPQ.poll();
+			}
+			if(this.maxPQ.size() > 0) {
+				this.maxPQ.poll();
+			}
+		}
+	}
+
+	private void applyToLeftQueue(
 			float number, 
 			PriorityQueue<Float> leftQueue,
 			PriorityQueue<Float> rightQueue) {
@@ -68,33 +85,34 @@ public class RunningMedian {
 		}
 	}
 	
-	private static void initialiseQueue(int queueNumber) {
+	private void initialiseQueue(int queueNumber) {
 		switch(queueNumber) {
 		case RunningMedian.HEAPPQ:
-			RunningMedian.minPQ = new HeapPriorityQueue<Float>();
-			RunningMedian.maxPQ = new HeapPriorityQueue<Float>(Comparator.reverseOrder());
+			this.minPQ = new HeapPriorityQueue<Float>();
+			this.maxPQ = new HeapPriorityQueue<Float>(Comparator.reverseOrder());
 			break;
 		case RunningMedian.UNSORTEDPQ:
-			RunningMedian.minPQ = new UnsortedPriorityQueue<Float>();
-			RunningMedian.maxPQ = new UnsortedPriorityQueue<Float>(Comparator.reverseOrder());
+			this.minPQ = new UnsortedPriorityQueue<Float>();
+			this.maxPQ = new UnsortedPriorityQueue<Float>(Comparator.reverseOrder());
 			break;
 		case RunningMedian.SORTEDPQ:
-			RunningMedian.minPQ = new SortedPriorityQueue<Float>();
-			RunningMedian.maxPQ = new SortedPriorityQueue<Float>(Comparator.reverseOrder());
+			this.minPQ = new SortedPriorityQueue<Float>();
+			this.maxPQ = new SortedPriorityQueue<Float>(Comparator.reverseOrder());
 			break;
 		}
 	}
 	
-	private static float getMedian() {
-		int minHeapSize = RunningMedian.minPQ.size();
-		int maxHeapSize = RunningMedian.maxPQ.size();
+	
+	private float getMedian() {
+		int minHeapSize = this.minPQ.size();
+		int maxHeapSize = this.maxPQ.size();
 		if(minHeapSize == maxHeapSize) {
-			return (RunningMedian.minPQ.peek() + 
-					RunningMedian.maxPQ.peek()) / 2; 
+			return (this.minPQ.peek() + 
+					this.maxPQ.peek()) / 2; 
 		} else if (minHeapSize > maxHeapSize) {
-			return RunningMedian.minPQ.peek();
+			return this.minPQ.peek();
 		}
 		
-		return RunningMedian.maxPQ.peek();
+		return this.maxPQ.peek();
 	}
 }

@@ -11,7 +11,7 @@ import java.util.List;
 public class Main {
 
 	public static void main(String[] args) throws IOException {
-//		float[] arr = { 12, 4, 5, 3, 8, 7 };
+
 		
 		List<List<String>> records = new ArrayList<>();
 		try (BufferedReader br = new BufferedReader(new FileReader("data/indexData.csv"))) {
@@ -36,62 +36,66 @@ public class Main {
 			arr[i] = arrL.get(i);
 		}
 		
+//		float[] arr = { 12, 4, 5, 3, 8, 7 };
+		
+		RunningMedian heapRM = new RunningMedian(RunningMedian.HEAPPQ);
+		RunningMedian sortedRM = new RunningMedian(RunningMedian.SORTEDPQ);
+		RunningMedian unsortedRM = new RunningMedian(RunningMedian.UNSORTEDPQ);
+		
+		
 		System.out.println("Heap PQ");
-		RunningMedian.Calculate(arr, RunningMedian.HEAPPQ);
 		long startTime = System.currentTimeMillis(); // Start the timer
-		RunningMedian.insertTimeTest(0.5f);
+		heapRM.Calculate(arr);
 		long opTime = System.currentTimeMillis() - startTime; // calculate the time
 		System.out.println("Insert Time: " + opTime);
 		startTime = System.currentTimeMillis(); // Start the timer
-		RunningMedian.sizeTimeTest();
+		heapRM.sizeTimeTest();
 		opTime = System.currentTimeMillis() - startTime; // calculate the time
 		System.out.println("Size Time: " + opTime);
 		startTime = System.currentTimeMillis(); // Start the timer
-		RunningMedian.peekTimeTest();
+		heapRM.peekTimeTest();
 		opTime = System.currentTimeMillis() - startTime; // calculate the time
 		System.out.println("Min Time: " + opTime);
 		startTime = System.currentTimeMillis(); // Start the timer
-		RunningMedian.pollTimeTest();
+		heapRM.pollAllTimeTest();
 		opTime = System.currentTimeMillis() - startTime; // calculate the time
-		System.out.println("Remove Min Time: " + opTime);
+		System.out.println("Remove All Min Time: " + opTime);
 		
 		System.out.println("\nSorted PQ");
-		RunningMedian.Calculate(arr, RunningMedian.SORTEDPQ);
 		startTime = System.currentTimeMillis(); // Start the timer
-		RunningMedian.insertTimeTest(0.5f);
+		sortedRM.Calculate(arr);
 		opTime = System.currentTimeMillis() - startTime; // calculate the time
 		System.out.println("Insert Time: " + opTime);
 		startTime = System.currentTimeMillis(); // Start the timer
-		RunningMedian.sizeTimeTest();
+		sortedRM.sizeTimeTest();
 		opTime = System.currentTimeMillis() - startTime; // calculate the time
 		System.out.println("Size Time: " + opTime);
 		startTime = System.currentTimeMillis(); // Start the timer
-		RunningMedian.peekTimeTest();
+		sortedRM.peekTimeTest();
 		opTime = System.currentTimeMillis() - startTime; // calculate the time
 		System.out.println("Min Time: " + opTime);
 		startTime = System.currentTimeMillis(); // Start the timer
-		RunningMedian.pollTimeTest();
+		sortedRM.pollAllTimeTest();
 		opTime = System.currentTimeMillis() - startTime; // calculate the time
-		System.out.println("Remove Min Time: " + opTime);
+		System.out.println("Remove All Min Time: " + opTime);
 		
 		System.out.println("\nUnSorted PQ");
-		RunningMedian.Calculate(arr, RunningMedian.UNSORTEDPQ);
 		startTime = System.currentTimeMillis(); // Start the timer
-		RunningMedian.insertTimeTest(0.5f);
+		unsortedRM.Calculate(arr);
 		opTime = System.currentTimeMillis() - startTime; // calculate the time
 		System.out.println("Insert Time: " + opTime);
 		startTime = System.currentTimeMillis(); // Start the timer
-		RunningMedian.sizeTimeTest();
+		unsortedRM.sizeTimeTest();
 		opTime = System.currentTimeMillis() - startTime; // calculate the time
 		System.out.println("Size Time: " + opTime);
 		startTime = System.currentTimeMillis(); // Start the timer
-		RunningMedian.peekTimeTest();
+		unsortedRM.peekTimeTest();
 		opTime = System.currentTimeMillis() - startTime; // calculate the time
 		System.out.println("Min Time: " + opTime);
 		startTime = System.currentTimeMillis(); // Start the timer
-		RunningMedian.pollTimeTest();
+		unsortedRM.pollAllTimeTest();
 		opTime = System.currentTimeMillis() - startTime; // calculate the time
-		System.out.println("Remove Min Time: " + opTime);
+		System.out.println("Remove All Min Time: " + opTime);
 		
 		// Execution done
 		System.out.println("\nExecution completed successfully!");
