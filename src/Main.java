@@ -20,7 +20,7 @@ public class Main {
 		List<List<String>> records = new ArrayList<>();
 		// Read the csv file
 		// Columns = [ Index,Date,Open,High,Low,Close,Adj Close,Volume ]
-		try (BufferedReader br = new BufferedReader(new FileReader("data/indexData.csv"))) {
+		try (BufferedReader br = new BufferedReader(new FileReader("data/AAPL.csv"))) {
 		    String line;
 		    // Get each line
 		    while ((line = br.readLine()) != null) {
