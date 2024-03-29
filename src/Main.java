@@ -1,6 +1,8 @@
 // Import the required packages
 import java.io.BufferedReader; // Reads text from a character-input stream, buffering characters 
+import java.io.BufferedWriter;
 import java.io.FileReader; // Convenience class for reading character files
+import java.io.FileWriter;
 import java.io.IOException; // Convenience class for Input/Output exceptions 
 import java.util.ArrayList; // List class in the form of arrays
 import java.util.Arrays;	// Class for handling Array Like structures
@@ -60,7 +62,7 @@ public class Main {
 		//	Sorted and Unsorted queues are stored as Linked Lists
 		System.out.println("Heap PQ");
 		long startTime = System.currentTimeMillis(); // Start the timer
-		heapRM.Calculate(arr);
+		float[] medians = heapRM.Calculate(arr);
 		long opTime = System.currentTimeMillis() - startTime; // calculate the time
 		System.out.println("Insert all data Time: " + opTime + "ms");
 		startTime = System.currentTimeMillis(); // Start the timer
@@ -75,11 +77,13 @@ public class Main {
 		heapRM.pollAllTimeTest();
 		opTime = System.currentTimeMillis() - startTime; // calculate the time
 		System.out.println("Remove All Min Time: " + opTime + "ms");
+		// Write medians to file
+		Main.writeToFile("output/HeapPQMedians.txt", medians);
 		
 		// Time Sorted Priority queue
 		System.out.println("\nSorted PQ");
 		startTime = System.currentTimeMillis(); // Start the timer
-		sortedRM.Calculate(arr);
+		medians = sortedRM.Calculate(arr);
 		opTime = System.currentTimeMillis() - startTime; // calculate the time
 		System.out.println("Insert all data Time: " + opTime + "ms");
 		startTime = System.currentTimeMillis(); // Start the timer
@@ -94,11 +98,13 @@ public class Main {
 		sortedRM.pollAllTimeTest();
 		opTime = System.currentTimeMillis() - startTime; // calculate the time
 		System.out.println("Remove All Min Time: " + opTime + "ms");
+		// Write medians to file
+		Main.writeToFile("output/SortedPQMedians.txt", medians);
 		
 		// Time Unsorted Priority queue
 		System.out.println("\nUnSorted PQ");
 		startTime = System.currentTimeMillis(); // Start the timer
-		unsortedRM.Calculate(arr);
+		medians = unsortedRM.Calculate(arr);
 		opTime = System.currentTimeMillis() - startTime; // calculate the time
 		System.out.println("Insert all data Time: " + opTime + "ms");
 		startTime = System.currentTimeMillis(); // Start the timer
@@ -113,6 +119,8 @@ public class Main {
 		unsortedRM.pollAllTimeTest();
 		opTime = System.currentTimeMillis() - startTime; // calculate the time
 		System.out.println("Remove All Min Time: " + opTime + "ms");
+		// Write medians to file
+		Main.writeToFile("output/UnsortedPQMedians.txt", medians);
 		
 		// Execution done
 		System.out.println("\nExecution completed successfully!");
@@ -129,5 +137,16 @@ public class Main {
 	        return false;
 	    }
 	    return true;
+	}
+	
+	// Method to write x data to outFilename file
+	public static void writeToFile (String outFilename, float[] x) throws IOException{
+		BufferedWriter outputWriter = new BufferedWriter(new FileWriter(outFilename));
+		for (int i = 0; i < x.length; i++) {
+		    outputWriter.write(Float.toString(x[i]));
+		    outputWriter.newLine();
+		}
+		outputWriter.flush();  
+		outputWriter.close();  
 	}
 }

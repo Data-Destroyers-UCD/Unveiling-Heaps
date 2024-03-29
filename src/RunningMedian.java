@@ -23,9 +23,9 @@ public class RunningMedian {
 		this.initialiseQueue(queueNumber);
 	}
 	
-	// Method that calculates the median from the given list
-	public float Calculate(float[] numbersList) {
-		
+	// Method that calculates the medians from the given list
+	public float[] Calculate(float[] numbersList) {
+		float[] medianArray = new float[numbersList.length];
 		// Loop through eaech number
 		for(int i = 0; i < numbersList.length; ++i) {
 			// Check if the current number is less than median
@@ -45,12 +45,12 @@ public class RunningMedian {
 			
 			// Calculate the median
 			median = getMedian();
-			
+			medianArray[i] = median;
 			//System.out.println(median);
 		}
 		
 		// Return the median
-		return median;
+		return medianArray;
 	}
 	
 	// Test function to insert data in into max PQ

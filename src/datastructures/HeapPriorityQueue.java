@@ -60,7 +60,7 @@ public class HeapPriorityQueue<T> extends AbstractPriorityQueue<T> {
             if (hasRight(j)) {
             	// Get the right sibling index
                 int rightIndex = right(j);
-                // IF the left child's priority is greater than right child priority
+                // If the left child's priority is greater than right child priority
                 if (compare(heap.get(leftIndex), heap.get(rightIndex)) > 0)
                 	// Set small child index as right child index
                     smallChildIndex = rightIndex;
