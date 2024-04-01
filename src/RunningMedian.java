@@ -26,7 +26,7 @@ public class RunningMedian {
 	// Method that calculates the medians from the given list
 	public float[] Calculate(float[] numbersList) {
 		float[] medianArray = new float[numbersList.length];
-		// Loop through eaech number
+		// Loop through each number
 		for(int i = 0; i < numbersList.length; ++i) {
 			// Check if the current number is less than median
 			if(numbersList[i] < median) {
